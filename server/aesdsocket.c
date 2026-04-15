@@ -122,7 +122,7 @@ static int send_file_to_client(int client_fd)
     char buf[4096];
     ssize_t r;
     while ((r = read(fd, buf, sizeof(buf))) > 0) {
-        if (safe_write_all(client_fd, buf, (size_t)r) == -1) {
+        if (send(client_fd, buf, (size_t)r, 0) == -1) {
             close(fd);
             return -1;
         }
